@@ -1,0 +1,143 @@
+.profile-page {
+  display: grid;
+  min-width: 0;
+  gap: 20px;
+  container: student-profile / inline-size;
+}
+
+.profile-page *, .profile-dialog * {
+  transition-timing-function: var(--ease-liquid);
+}
+
+.profile-sunset {
+  background: linear-gradient(84deg, #d94e1f, #ee7f43 22%, #f59e0b 43%, #f6bf81 57%, #c0ada3 73%, #6e85a8 86%, #1e4d8c);
+}
+
+.profile-hero-body {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  grid-template-areas: "avatar name edit" ". about about" ". socials socials";
+  column-gap: 18px;
+  padding: 0 24px 23px;
+}
+.profile-avatar-wrap { grid-area: avatar; margin-top: -40px; }
+.profile-avatar-frame {
+  box-shadow: 0 5px 16px -7px rgb(20 21 24 / 38%), 0 0 0 1px rgb(220 216 206 / 60%);
+}
+.profile-avatar-button.liquid-secondary {
+  background: rgb(255 255 255 / 94%);
+  box-shadow: inset 0 1px 0 #fff, 0 3px 10px -4px rgb(20 21 24 / 40%);
+}
+.profile-avatar-art { animation: portrait-in 390ms var(--ease-liquid) both; }
+.profile-identity { grid-area: name; align-self: center; padding-top: 6px; }
+.profile-edit-action { grid-area: edit; align-self: center; padding-top: 5px; }
+.profile-about { grid-area: about; margin-top: 2px; }
+.profile-socials { grid-area: socials; margin-top: 15px; }
+.profile-founding { box-shadow: inset 0 1px 0 rgb(255 255 255 / 88%); }
+
+.profile-badge-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 9px; }
+.badge-rocket { --badge-tone: #d87535; --badge-letter: #914315; }
+.badge-trophy { --badge-tone: #458cbb; --badge-letter: #225b8e; }
+.badge-dish { --badge-tone: #42a18d; --badge-letter: #1b6b5a; }
+.badge-star, .badge-compass, .badge-shield { --badge-tone: #b9b4a8; }
+.profile-badge-tile {
+  border-color: var(--color-hairline);
+  transition: transform 320ms var(--ease-liquid), box-shadow 320ms var(--ease-liquid), border-color 320ms var(--ease-liquid);
+}
+.is-earned.profile-badge-tile, .is-earned.profile-badge-stage {
+  border-color: color-mix(in srgb, var(--badge-tone) 35%, white);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--badge-tone) 11%, white), color-mix(in srgb, var(--badge-tone) 4%, white) 76%);
+  box-shadow: inset 0 1px 1px white, inset 0 -1px 0 color-mix(in srgb, var(--badge-tone) 10%, transparent);
+}
+.is-earned .profile-badge-status { color: var(--badge-letter); }
+.is-locked.profile-badge-tile, .is-locked.profile-badge-stage { background: var(--color-stone); }
+.profile-badge-art { transition: transform 370ms var(--ease-liquid); }
+.profile-badge-tile.is-locked .profile-badge-art { filter: saturate(.27); opacity: .74; }
+.profile-badge-tile:hover, .profile-badge-tile:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--badge-tone);
+  box-shadow: inset 0 1px 1px white, 0 8px 18px -13px rgb(20 21 24 / 40%);
+}
+.profile-badge-tile:hover .profile-badge-art { transform: rotate(-5deg) scale(1.06); }
+.profile-badge-tile:active { transform: translateY(0); }
+
+.profile-portfolio-heading { display: none; }
+.profile-tabs { width: min(480px, 100%); box-shadow: inset 0 1px 2px rgb(20 21 24 / 5%); }
+.profile-tab-thumb {
+  background: linear-gradient(180deg, #e65c2a, var(--color-booster));
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 48%), 0 4px 10px -6px rgb(217 78 31 / 55%);
+  transition: transform 360ms var(--ease-liquid);
+}
+.profile-content-panel:not([hidden]) { animation: cx-swap 360ms var(--ease-liquid) both; }
+.profile-project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.profile-project-card { transition: box-shadow 300ms var(--ease-liquid), border-color 300ms var(--ease-liquid); }
+.profile-project-card:hover { border-color: color-mix(in srgb, var(--color-hairline) 74%, var(--color-graphite)); box-shadow: 0 20px 42px -34px rgb(20 21 24 / 36%); }
+.profile-project-cover { aspect-ratio: 2.85 / 1; }
+.profile-project-cover > svg { transition: transform 650ms var(--ease-liquid); }
+.profile-project-card:hover .profile-project-cover > svg { transform: scale(1.025); }
+.profile-notebook-cover {
+  background-image: linear-gradient(rgb(30 77 140 / 8%) 1px, transparent 1px), linear-gradient(90deg, rgb(30 77 140 / 8%) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.profile-role-team { background: #e8eff5; }
+.profile-role-club { background: #fbefdd; }
+.profile-role-design { background: #e5f1ed; }
+.profile-timeline > li:not(:last-child)::after {
+  position: absolute;
+  bottom: -13px;
+  left: 45px;
+  width: 1px;
+  height: 12px;
+  background: var(--color-hairline);
+  content: "";
+}
+.profile-dialog.liquid-modal {
+  position: fixed;
+  inset: 0;
+  width: min(560px, calc(100% - 24px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--color-ink);
+}
+.profile-dialog.profile-dialog-compact { width: min(430px, calc(100% - 24px)); }
+.profile-dialog[open] { animation: profile-dialog-in 280ms var(--ease-liquid) both; }
+.profile-dialog::backdrop { background: rgb(20 21 24 / 37%); backdrop-filter: blur(6px); animation: cx-fade 220ms ease-out both; }
+.profile-dialog-inner { display: flex; flex-direction: column; max-height: calc(100dvh - 34px); }
+.profile-dialog :focus-visible, .profile-page :focus-visible { outline: 2px solid var(--color-cobalt); outline-offset: 3px; }
+.profile-dialog .glass-input:focus-visible { outline: none; }
+.profile-toast { pointer-events: none; }
+
+@keyframes portrait-in { from { transform: rotate(-5deg) scale(.94); opacity: .65; } to { transform: none; opacity: 1; } }
+@keyframes profile-dialog-in { from { transform: translateY(10px) scale(.985); opacity: 0; } to { transform: none; opacity: 1; } }
+
+@container student-profile (max-width: 52rem) {
+  .profile-badge-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .profile-badge-tile { flex-direction: row; flex-wrap: wrap; column-gap: 6px; }
+  .profile-badge-tile .profile-badge-art { width: 44px; height: 44px; }
+  .profile-badge-tile > span:first-of-type { max-width: 10ch; text-align: left; }
+  .profile-badge-status { flex-basis: auto; }
+}
+@container student-profile (max-width: 40rem) {
+  .profile-hero-body { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "avatar edit" "name name" "about about" "socials socials"; padding: 0 18px 20px; }
+  .profile-identity { padding-top: 10px; }
+  .profile-edit-action { justify-self: end; }
+  .profile-about { margin-top: 5px; }
+  .profile-portfolio-controls { align-items: stretch; }
+  .profile-portfolio-heading { display: block; align-self: center; }
+  .profile-tabs { order: 2; width: 100%; }
+  .profile-portfolio-controls > .liquid-primary { margin-left: auto; }
+  .profile-badge-tile { flex-direction: column; flex-wrap: nowrap; }
+  .profile-badge-tile > span:first-of-type { max-width: 15ch; text-align: center; }
+  .profile-project-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@container student-profile (max-width: 26rem) {
+  .profile-badge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-tab-icon { display: none; }
+  .profile-socials { gap: 6px; }
+  .profile-socials > * { padding-inline: 8px; font-size: 12px; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-page *, .profile-dialog[open], .profile-dialog::backdrop { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
